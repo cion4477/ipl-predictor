@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IPL Predictor{% endblock %}</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+
+    <!-- AOS Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Select2 Dropdown -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gradient-to-r from-blue-500 to-teal-400 min-h-screen flex flex-col" id="particles-js">
+
+    <!-- Navbar -->
+    <nav class="bg-white text-blue-600 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">🏏 IPL Predictor</h1>
+            <div class="space-x-4">
+                <a href="/" class="hover:underline">Home</a>
+                <a href="/prematch" class="hover:underline">Pre-Match</a>
+                <a href="/midmatch" class="hover:underline">Mid-Match</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="container mx-auto py-8 flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white text-blue-600 p-4 text-center">
+        &copy; 2025 IPL Predictor
+    </footer>
+
+    <!-- JS Libraries -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+    <!-- Init Scripts -->
+    <script>
+        // AOS animation init
+        AOS.init();
+
+        // Select2 with logos
+        $(document).ready(function () {
+            $('select').select2({
+                templateResult: formatTeam,
+                templateSelection: formatTeam
+            });
+        });
+
+        function formatTeam(team) {
+            if (!team.id) return team.text;
+            let imgPath = `/static/logos/${team.text.toLowerCase().replace(/ /g, '')}.png`;
+            return $(`<span><img src="${imgPath}" style="width:20px;height:20px;margin-right:8px;">${team.text}</span>`);
+        }
+
+        // Particles.js background
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 50 },
+                size: { value: 3 },
+                move: { speed: 1 }
+            }
+        });
+    </script>
+</body>
+
+</html>

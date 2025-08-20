@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Prediction Result{% endblock %}
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("{{ url_for('static', filename='images/result-bg.png') }}") no-repeat center center fixed !important;
+        background-size: cover !important;
+        animation: zoomBg 25s ease-in-out infinite alternate;
+    }
+
+    @keyframes zoomBg {
+        0% {
+            background-size: 100% auto;
+        }
+
+        100% {
+            background-size: 110% auto;
+        }
+    }
+</style>
+
+<div class="max-w-md mx-auto text-center bg-white bg-opacity-80 rounded-lg p-6 shadow-lg backdrop-blur-sm"
+    data-aos="zoom-in">
+    <h2 class="text-3xl font-bold text-blue-600 mb-4">Prediction Result</h2>
+    <p class="text-2xl font-semibold text-green-600">{{ prediction }}</p>
+
+    <!-- Chart -->
+    <canvas id="probabilityChart" class="mt-4"></canvas>
+
+    <a href="/" class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-800 transition">
+        Back to Home
+    </a>
+</div>
+
+<script>
+    var ctx = document.getElementById('probabilityChart').getContext('2d');
+
+    // Load team logo dynamically based on prediction
+    var logoImg = new Image();
+    logoImg.src = "/static/logos/{{ prediction | lower | replace(' ', '') }}.png";
+
+    // If image fails to load, use a default logo
+    logoImg.onerror = function () {
+        logoImg.src = "/static/logos/default.png";
+    };
+
+    // Plugin to draw logo inside chart
+    const logoPlugin = {
+        id: 'centerLogo',
+        afterDraw: (chart) => {
+            const { ctx, chartArea: { width, height, left, top } } = chart;
+            const xCenter = left + width / 2;
+            const yCenter = top + height / 2;
+
+            const imgSize = Math.min(width, height) / 2.5; // Bigger size for better fit
+            ctx.save();
+            ctx.globalAlpha = 1; // full opacity
+            ctx.drawImage(logoImg, xCenter - imgSize / 2, yCenter - imgSize / 2, imgSize, imgSize);
+            ctx.restore();
+        }
+    };
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Win Probability', 'Lose Probability'],
+            datasets: [{
+                data: [75, 25], // Replace with real prediction values
+                backgroundColor: ['#22c55e', '#ef4444']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } }
+        },
+        plugins: [logoPlugin]
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Home - IPL Predictor{% endblock %}
+{% block content %}
+
+<!-- Fullscreen Background -->
+<div
+    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-800 via-cyan-700 to-teal-800 px-4 relative overflow-hidden">
+
+    <!-- Glassmorphism Card -->
+    <div class="text-center space-y-8 py-12 px-8 rounded-2xl shadow-2xl backdrop-blur-md bg-white/10 border border-white/20 max-w-3xl w-full relative z-10"
+        data-aos="fade-up" data-aos-duration="1000">
+
+        <!-- Main Heading with Shimmer -->
+        <h2 class="text-5xl font-extrabold text-white drop-shadow-lg shimmer">
+            Welcome to the IPL Match Predictor
+        </h2>
+
+        <!-- Tagline -->
+        <p class="text-lg text-gray-200 max-w-2xl mx-auto leading-relaxed">
+            Harness the power of AI and data analytics to predict match outcomes with precision.
+            Make informed decisions <span class="font-semibold text-yellow-300">before</span> or
+            <span class="font-semibold text-yellow-300">during</span> the game.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap justify-center gap-6 mt-8">
+            <a href="/prematch"
+                class="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-8 py-4 rounded-lg shadow-lg hover:scale-110 hover:shadow-blue-400/50 hover:from-blue-600 hover:to-blue-800 transition-transform duration-300 text-lg font-semibold">
+                Pre-match Prediction
+            </a>
+            <a href="/midmatch"
+                class="bg-gradient-to-r from-green-500 to-green-700 text-white px-8 py-4 rounded-lg shadow-lg hover:scale-110 hover:shadow-green-400/50 hover:from-green-600 hover:to-green-800 transition-transform duration-300 text-lg font-semibold">
+                Mid-match Prediction
+            </a>
+            <a href="/analysis"
+                class="bg-gradient-to-r from-purple-500 to-purple-700 text-white px-8 py-4 rounded-lg shadow-lg hover:scale-110 hover:shadow-purple-400/50 hover:from-purple-600 hover:to-purple-800 transition-transform duration-300 text-lg font-semibold">
+                Analysis
+            </a>
+        </div>
+
+        <!-- Small Tip Section -->
+        <div class="mt-6 text-sm text-gray-300 italic">
+            Tip: Stay updated with live match data for the most accurate predictions.
+        </div>
+
+    </div>
+</div>
+
+<!-- Shimmer Effect Styles -->
+<style>
+    .shimmer {
+        background: linear-gradient(90deg, #fff, #ffeb3b, #fff);
+        background-size: 200% 100%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer-move 3s infinite linear;
+    }
+
+    @keyframes shimmer-move {
+        0% {
+            background-position: -200% 0;
+        }
+
+        100% {
+            background-position: 200% 0;
+        }
+    }
+</style>
+
+{% endblock %}

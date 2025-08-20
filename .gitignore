@@ -1,0 +1,18 @@
+# Ignore virtual environment
+venv/
+
+# Ignore large dataset files
+IPL.csv
+IPL.zip
+
+# Ignore pickle model files
+*.pkl
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore VS Code settings
+.vscode/

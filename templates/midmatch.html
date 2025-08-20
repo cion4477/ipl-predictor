@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mid-Match</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+            url("{{ url_for('static', filename='images/midmatch-bg.png') }}") no-repeat center center fixed;
+            background-size: cover;
+            animation: zoomBg 25s ease-in-out infinite alternate;
+            color: white;
+            text-align: center;
+            padding-top: 30px;
+        }
+
+        @keyframes zoomBg {
+            0% {
+                background-size: 100% auto;
+            }
+
+            100% {
+                background-size: 110% auto;
+            }
+        }
+
+        h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+        }
+
+        select,
+        input {
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type=submit] {
+            background-color: #0ea5e9;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type=submit]:hover {
+            background-color: #0369a1;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Mid-Match Prediction</h2>
+    <form method="post" action="/predict_midmatch">
+        <select name="batting_team" required>
+            <option value="">--Select Batting Team--</option>
+            {% for t in teams %}<option value="{{ t }}">{{ t }}</option>{% endfor %}
+        </select><br>
+        <select name="bowling_team" required>
+            <option value="">--Select Bowling Team--</option>
+            {% for t in teams %}<option value="{{ t }}">{{ t }}</option>{% endfor %}
+        </select><br>
+        <select name="venue" required>
+            <option value="">--Select Venue--</option>
+            {% for v in venues %}<option value="{{ v }}">{{ v }}</option>{% endfor %}
+        </select><br>
+        <select name="city" required>
+            <option value="">--Select City--</option>
+            {% for c in cities %}<option value="{{ c }}">{{ c }}</option>{% endfor %}
+        </select><br>
+        Team runs: <input type="number" step="1" name="runs_total" required><br>
+        Team wickets: <input type="number" name="team_wicket" required><br>
+        Overs (decimal) or Team balls: <input type="number" step="0.1" name="overs"> OR <input type="number"
+            name="team_balls"><br>
+        <input type="submit" value="Predict">
+    </form>
+</body>
+
+</html>

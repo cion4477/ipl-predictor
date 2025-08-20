@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">IPL Data Analysis</h2>
+
+    <div class="row">
+        {% for plot in [
+        'top_wicket_takers.png', 'top_run_scorer.png',
+        'top_batter_strike_rate.png', 'top_economical_bowler.png',
+        'consistency.png', 'toss_impact_venue.png', 'toss_decision_impact.png',
+        'top_venues.png', 'top_players.png', 'top_team_performance_venue.png',
+        'matches_per_season.png', 'team_game_phase.png',
+        'top_venue_by_chasing_success.png'
+        ] %}
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>{{ plot.split('.')[0].replace('_', ' ').title() }}</h5>
+                    <img src="{{ url_for('static', filename='plots/' + plot) }}" class="img-fluid" alt="{{ plot }}">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
